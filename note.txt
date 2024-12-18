@@ -1,0 +1,2 @@
+bug total harga di cetak dokumen udh bisa
+cetak dokumennya udh dipisah
