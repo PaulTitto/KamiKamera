@@ -54,7 +54,7 @@ include 'assets/php/db.php';
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">KamiKamera<span class="text-primary">RENCAMS</span></a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">KamiKamera <span class="text-primary">RENCAMS</span></a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -86,7 +86,7 @@ include 'assets/php/db.php';
 <!--          <hr class="divider-primary my-4">-->
         </div>
         <div class="col-lg-8 align-self-baseline">
-          <h3 class="text-white font-weight-light mb-3 text-shadow">Safer, Faster And <br>Comfortable</h3>
+          <h3 class="text-white font-weight-light mb-3 text-shadow">Safer, Faster, and <br>Comfortable</h3>
             <h5 class="text-white font-weight-light mb-5 text-shadow">Get in touch with our <br>luxury cars</h5>
           <a class="btn btn-light btn-xl js-scroll-trigger"  href="#about">Rent Now</a>
         </div>
@@ -101,7 +101,7 @@ include 'assets/php/db.php';
           <section class="page-section bg-secondary" id="about">
                   <div class="row justify-content-center ">
                       <div class="col-lg-11 text-left">
-                          <h2 class="text-white ">Book your drean camera now!</h2>
+                          <h2 class="text-white ">Book your dream camera now!</h2>
 <!--                          <hr class="divider-light my-2 align-items-md-start">-->
                           <h5 class="text-white mb-4">Rent a camera online now from one of our worldwide locations. With over 20 years of experience in camera rentals and customer service, all we need is your ID, and you can book any camera you desire.</h5>
                           <a class="btn btn-light btn-l js-scroll-trigger mx-2" href="#online">Rent Now</a>

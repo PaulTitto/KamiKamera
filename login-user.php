@@ -39,7 +39,7 @@
     <form action="proses-login" method="POST">
       <div class="row justify-content-center">
         <div class="col-lg-8 text-center mt-5">
-        <h4 class="h1">FIFA<span class="text-light">DVENTURE</span></h4>
+        <h4 class="h1">FIFA<span class="text-light">ADVENTURE</span></h4>
         <hr class="divider-light">
           <h2 class="text-white h5">Login</h2>
           <div class="card p-2 bg-light">
