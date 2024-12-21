@@ -89,7 +89,7 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index">
-        <div class="sidebar-brand-text mx-3">PAUL RENCAMS</div>
+        <div class="sidebar-brand-text mx-3">KamiKamera</div>
       </a>
 
       <!-- Divider -->

@@ -19,7 +19,7 @@ include 'assets/php/db.php';
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>PAUL RENCAMS | Online</title>
+  <title>KamiKamera | Online</title>
 
   <!-- Font Awesome Icons -->
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -54,7 +54,7 @@ include 'assets/php/db.php';
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">PAUL<span class="text-primary">RENCAMS</span></a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">KamiKamera<span class="text-primary">RENCAMS</span></a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
