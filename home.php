@@ -66,9 +66,9 @@ include 'assets/php/db.php';
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#services">Services</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#online">Pesan Online</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
           </li>
@@ -88,7 +88,7 @@ include 'assets/php/db.php';
         <div class="col-lg-8 align-self-baseline">
           <h3 class="text-white font-weight-light mb-3 text-shadow">Safer, Faster, and <br>Comfortable</h3>
             <h5 class="text-white font-weight-light mb-5 text-shadow">Get in touch with our <br>luxury cars</h5>
-          <a class="btn btn-light btn-xl js-scroll-trigger"  href="#about">Rent Now</a>
+          <!-- <a class="btn btn-light btn-xl js-scroll-trigger"  href="#about">Rent Now</a> -->
         </div>
       </div>
     </div>
@@ -104,8 +104,8 @@ include 'assets/php/db.php';
                           <h2 class="text-white ">Book your dream camera now!</h2>
 <!--                          <hr class="divider-light my-2 align-items-md-start">-->
                           <h5 class="text-white mb-4">Rent a camera online now from one of our worldwide locations. With over 20 years of experience in camera rentals and customer service, all we need is your ID, and you can book any camera you desire.</h5>
-                          <a class="btn btn-light btn-l js-scroll-trigger mx-2" href="#online">Rent Now</a>
-                          <span class="text-white">Atau </span>
+                          <!-- <a class="btn btn-light btn-l js-scroll-trigger mx-2" href="#online">Rent Now</a> -->
+                          <!-- <span class="text-white">Atau </span> -->
                           <button class="btn btn-dark btn-l js-scroll-trigger mx-2" onclick="window.location.assign('barang-sewa?p=1&k=all')">Lihat Barang</button>
                       </div>
               </div>
