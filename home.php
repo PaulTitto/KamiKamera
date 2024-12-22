@@ -127,8 +127,8 @@ include 'assets/php/db.php';
                           <h2 class="text-white ">Book your dream camera now!</h2>
 <!--                          <hr class="divider-light my-2 align-items-md-start">-->
                           <h5 class="text-white mb-4">Rent a camera online now from one of our worldwide locations. With over 20 years of experience in camera rentals and customer service, all we need is your ID, and you can book any camera you desire.</h5>
-                          <!-- <a class="btn btn-light btn-l js-scroll-trigger mx-2" href="#online">Rent Now</a> -->
-                          <!-- <span class="text-white">Atau </span> -->
+                          <a class="btn btn-light btn-l js-scroll-trigger mx-2" href="#online">Rent Now</a> -->
+                          <span class="text-white">Atau </span>
                           <button class="btn btn-dark btn-l js-scroll-trigger mx-2" onclick="window.location.assign('barang-sewa?p=1&k=all')">Lihat Barang</button>
                       </div>
               </div>
@@ -169,106 +169,7 @@ include 'assets/php/db.php';
     </div>
   </section>
 
-  <!-- Portfolio Section -->
-  <section class="page-section bg-dark text-white"  id="online">
-    <div class="container">
-      <h2 class="mb-1 text-center">Pesan Online</h2>
-      <h5 class="mb-4 text-center">Pesan Dulu, Nanti Ambil Ditoko</h5>
 
-      <hr class="divider-light my-4">
-      <form name="pesanOnline" method="POST" action="simpan-sewa.php" target="_blank">
-        <div class="row">
-          <div class="col-lg-6 col-sm-12">
-            <div class="form-group">
-              <label>Nama Lengkap</label>
-              <input type="text" name="namaLengkap" class="form-control" style="box-shadow: inset 0 -1px 0 #ddd;" required>
-            </div>
-          </div>
-          <div class="col-lg-6 col-sm-12">
-            <div class="form-group">
-              <label>Nomor Telepon</label>
-              <input type="number" name="noTelp" class="form-control" style="box-shadow: inset 0 -1px 0 #ddd;" required>
-            </div>
-          </div>
-        </div>  
-        <hr style="background-color: #fff;">
-        <h5 class="mb-4 text-center">List Barang</h5> 
-        <div class="input_fields_wrap">
-            <div class="row">
-              <!--baris satu-->
-              <div class="col-lg-6 col-sm-12">
-                <div class="form-group">
-                  <label>Nama Barang</label>
-                  <input type="hidden" name="idBarang[]" id="idBarang1">
-                  <input type="hidden" id="tersedia1">
-                  <select name="kode" name="barang[]" class="form-control" style="box-shadow: inset 0 -1px 0 #ddd;" onchange="prosesBarang(this.value , 1)" >
-                    <option value="" hidden>--Pilih Barang--</option>
-                           <?php
-                              $sql = mysql_query("SELECT * FROM tb_barang");
-                              $dataBrg = "var dtbrg = new Array();\n";
-                              while ($res=mysql_fetch_array($sql)) {
-                              $nama=$res ['nama_barang']." (".$res['qty']." unit)";
-                              $dataBrg .= " dtbrg ['" . $res['id_barang']. "'] = {namaBarang:'" .$nama. "',hargaSewa:'" . $res['harga_sewa']. "', qty:'" .$res ['qty']."'};\n";?>
-                              <option value="<?php echo $res['id_barang']?>"><?=$nama;?></option>
-                              <?php
-                              }
-                           ?>
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-12">
-                <div class="form-group">
-                  <label>Harga (per Hari)</label>
-                  <input type="text" name="harga[]" id="harga1" class="form-control" readonly>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-12">
-                <div class="form-group">
-                  <label>Qty</label>
-                  <input type="number" name="qty[]" id="qty1" value="0" onkeyup="cekStok(this.value, 1)" style="box-shadow: inset 0 -1px 0 #ddd;" class="form-control">
-                </div>
-              </div>         
-            </div>  
-        </div>
-
-        <hr style="background-color: #fff;">
-        <h5 class="mb-4 text-center">Total Sewa</h5> 
-
-        <div class="row">
-          <div class="col-lg-3 col-sm-12">
-            <div class="form-group">
-              <label>Lama Sewa (Hari)</label>
-              <input type="number" name="lamaSewa" id="lamaSewa" class="form-control" onkeyup="hitungLamaSewa(this.value)" style="box-shadow: inset 0 -1px 0 #ddd;" required>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-12">
-            <div class="form-group">
-              <label>Tanggal Pesan</label>
-              <input type="text" name="tglPesan" id="tglPesan" class="form-control" readonly>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-12">
-            <div class="form-group">
-              <label>Tanggal Kembali</label>
-              <input type="text" name="tglKembali" id="tglKembali" class="form-control" readonly>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-12 mb-4">
-            <div class="form-group">
-              <label>Total Bayar</label>
-              <input type="text" name="totalBayar" id="totalBayar" class="form-control" readonly>
-            </div>
-          </div>
-        </div>
-          <center>
-            <button type="button" class="add_field_button btn btn-light btn-xl js-scroll-trigger mb-3">Tambah Barang</button>
-            <br>
-            <button class="btn btn-light btn-xl js-scroll-trigger">Simpan dan Cetak Bukti Sewa</button>
-          </center>
-      </form>
-      
-    </div>
-  </section>
 
   <!-- Contact Section -->
   <section class="page-section" id="contact">
