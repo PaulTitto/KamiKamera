@@ -1,137 +1,110 @@
 <?php
-global $conn;
-header('Content-Type: application/json'); // JSON Response Header
-require_once 'db.php';
+include 'db.php'; // Sesuaikan dengan file koneksi Anda
 
-switch ($_SERVER['REQUEST_METHOD']) {
+header('Content-Type: application/json');
+
+$method = $_SERVER['REQUEST_METHOD'];
+
+switch ($method) {
     case 'GET':
-        // Fetch all records or a single record
-        if (isset($_GET['id_barang'])) {
-            $id = $conn->real_escape_string($_GET['id_barang']);
-            $query = "SELECT * FROM tb_barang WHERE id_barang = '$id'";
-        } else {
-            $query = "SELECT * FROM tb_barang";
-        }
-
+        $query = "SELECT * FROM tb_barang";
         $result = $conn->query($query);
-        if ($result) {
-            $data = $result->fetch_all(MYSQLI_ASSOC);
-            echo json_encode(["status" => "success", "data" => $data]);
-        } else {
-            echo json_encode(["status" => "error", "message" => "Failed to fetch data: " . $conn->error]);
+        $data = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
         }
+        echo json_encode(["status" => "success", "data" => $data]);
         break;
 
     case 'POST':
-        // Add a new record
-        $input = json_decode(file_get_contents("php://input"), true);
-        $nama_barang = $input['nama_barang'];
-        $harga_barang = $input['harga_barang'];
-        $harga_sewa = $input['harga_sewa'];
-        $qty = $input['qty'];
-        $img = $input['img'];
-        $id_kategori = $input['id_kategori'];
+        if (!empty($_POST['nama_barang']) && !empty($_POST['harga_barang']) &&
+            !empty($_POST['harga_sewa']) && !empty($_POST['qty']) &&
+            isset($_FILES['img']) && !empty($_POST['id_kategori'])) {
 
-        $query = "INSERT INTO tb_barang (id_barang, nama_barang, harga_barang, harga_sewa, qty, img, id_kategori) 
-                  VALUES (UUID(), '$nama_barang', '$harga_barang', '$harga_sewa', '$qty', '$img', '$id_kategori')";
-        if ($conn->query($query)) {
-            echo json_encode(["status" => "success", "message" => "Record added"]);
+            $nama_barang = $conn->real_escape_string($_POST['nama_barang']);
+            $harga_barang = $conn->real_escape_string($_POST['harga_barang']);
+            $harga_sewa = $conn->real_escape_string($_POST['harga_sewa']);
+            $qty = $conn->real_escape_string($_POST['qty']);
+            $id_kategori = $conn->real_escape_string($_POST['id_kategori']);
+
+            // Upload file logic
+            $img = $_FILES['img'];
+            $ext = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
+            $allowed_ext = ['jpg', 'jpeg', 'png'];
+            if (in_array($ext, $allowed_ext) && $img['size'] <= 1048576) { // Max size 1MB
+                $img_name = uniqid() . '.' . $ext;
+                $upload_path = __DIR__ . '/../img/barang/' . $img_name;
+
+                if (move_uploaded_file($img['tmp_name'], $upload_path)) {
+                    $query = "INSERT INTO tb_barang (id_barang, nama_barang, harga_barang, harga_sewa, qty, img, id_kategori) 
+                              VALUES (UUID(), '$nama_barang', '$harga_barang', '$harga_sewa', '$qty', '$img_name', '$id_kategori')";
+                    if ($conn->query($query)) {
+                        echo json_encode(["status" => "success", "message" => "Barang berhasil ditambahkan."]);
+                    } else {
+                        echo json_encode(["status" => "error", "message" => $conn->error]);
+                    }
+                } else {
+                    echo json_encode(["status" => "error", "message" => "Gagal mengunggah gambar."]);
+                }
+            } else {
+                echo json_encode(["status" => "error", "message" => "Format gambar tidak valid atau ukuran terlalu besar."]);
+            }
         } else {
-            echo json_encode(["status" => "error", "message" => $conn->error]);
+            echo json_encode(["status" => "error", "message" => "Semua field harus diisi."]);
         }
         break;
 
     case 'PUT':
-        // Parse JSON input
-        parse_str(file_get_contents("php://input"), $input);
+        $input = json_decode(file_get_contents('php://input'), true);
+        if (!empty($input['id_barang']) && !empty($input['nama_barang']) &&
+            !empty($input['harga_barang']) && !empty($input['harga_sewa']) &&
+            !empty($input['qty']) && !empty($input['img']) && !empty($input['id_kategori'])) {
 
-        // Check for required fields
-        if (isset($input['id_barang'], $input['nama_barang'], $input['harga_barang'], $input['harga_sewa'], $input['qty'], $input['id_kategori'])) {
             $id_barang = $conn->real_escape_string($input['id_barang']);
-            $nama_barang = $conn->real_escape_string(ucwords($input['nama_barang']));
+            $nama_barang = $conn->real_escape_string($input['nama_barang']);
             $harga_barang = $conn->real_escape_string($input['harga_barang']);
             $harga_sewa = $conn->real_escape_string($input['harga_sewa']);
             $qty = $conn->real_escape_string($input['qty']);
+            $img = $conn->real_escape_string($input['img']);
             $id_kategori = $conn->real_escape_string($input['id_kategori']);
-            $gambar_name = null;
 
-            // Handle file uploads if any
-            if (!empty($_FILES['gambarBarang']['name'])) {
-                $file_tmp = $_FILES['gambarBarang']['tmp_name'];
-                $file_name = $_FILES['gambarBarang']['name'];
-                $file_size = $_FILES['gambarBarang']['size'];
-                $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-                $allowed_ext = array('jpg', 'jpeg', 'png');
-                $max_size = 1044070; // 1MB
-
-                // Check file extension and size
-                if (in_array($file_ext, $allowed_ext) && $file_size <= $max_size) {
-                    $gambar_name = $id_barang . '.' . $file_ext; // Rename file
-                    $upload_path = __DIR__ . "/../img/barang/" . $gambar_name;
-
-                    // Upload the new file
-                    if (!move_uploaded_file($file_tmp, $upload_path)) {
-                        echo json_encode(["status" => "error", "message" => "Failed to upload file."]);
-                        exit;
-                    }
-                } else {
-                    echo json_encode(["status" => "error", "message" => "Invalid file type or size exceeds 1MB."]);
-                    exit;
-                }
-            }
-
-            // Fetch the old image if exists
-            $old_img_query = "SELECT img FROM tb_barang WHERE id_barang = '$id_barang'";
-            $old_img_result = $conn->query($old_img_query);
-            $old_img_row = $old_img_result->fetch_assoc();
-            $old_img = $old_img_row['img'];
-
-            // Update query
-            $img_field = $gambar_name ? ", img = '$gambar_name'" : ""; // Include image field only if a new one is uploaded
             $query = "UPDATE tb_barang SET 
-                  nama_barang = '$nama_barang',
-                  harga_barang = '$harga_barang',
-                  harga_sewa = '$harga_sewa',
-                  qty = '$qty',
-                  id_kategori = '$id_kategori'
-                  $img_field
-                  WHERE id_barang = '$id_barang'";
-
+                        nama_barang='$nama_barang', 
+                        harga_barang='$harga_barang', 
+                        harga_sewa='$harga_sewa', 
+                        qty='$qty', 
+                        img='$img', 
+                        id_kategori='$id_kategori' 
+                      WHERE id_barang='$id_barang'";
             if ($conn->query($query)) {
-                // Delete old image if a new one was uploaded
-                if ($gambar_name && file_exists(__DIR__ . "/../img/barang/" . $old_img)) {
-                    unlink(__DIR__ . "/../img/barang/" . $old_img);
-                }
-                echo json_encode(["status" => "success", "message" => "Record updated successfully."]);
+                echo json_encode(["status" => "success", "message" => "Barang berhasil diperbarui."]);
             } else {
-                echo json_encode(["status" => "error", "message" => "Failed to update record: " . $conn->error]);
+                echo json_encode(["status" => "error", "message" => $conn->error]);
             }
         } else {
-            echo json_encode(["status" => "error", "message" => "Missing required fields."]);
+            echo json_encode(["status" => "error", "message" => "Semua field harus diisi."]);
         }
         break;
 
-
     case 'DELETE':
-        // Delete a record
-        $input = json_decode(file_get_contents("php://input"), true);
-        if (isset($input['id_barang'])) {
+        $input = json_decode(file_get_contents('php://input'), true);
+        if (!empty($input['id_barang'])) {
             $id_barang = $conn->real_escape_string($input['id_barang']);
-            $query = "DELETE FROM tb_barang WHERE id_barang = '$id_barang'";
+            $query = "DELETE FROM tb_barang WHERE id_barang='$id_barang'";
             if ($conn->query($query)) {
-                echo json_encode(["status" => "success", "message" => "Record deleted"]);
+                echo json_encode(["status" => "success", "message" => "Barang berhasil dihapus."]);
             } else {
-                echo json_encode(["status" => "error", "message" => "Failed to delete record: " . $conn->error]);
+                echo json_encode(["status" => "error", "message" => $conn->error]);
             }
         } else {
-            echo json_encode(["status" => "error", "message" => "ID barang is required."]);
+            echo json_encode(["status" => "error", "message" => "ID barang diperlukan."]);
         }
         break;
 
     default:
-        echo json_encode(["status" => "error", "message" => "Invalid request method"]);
+        echo json_encode(["status" => "error", "message" => "Method tidak valid."]);
         break;
 }
-
-$conn->close();
 ?>

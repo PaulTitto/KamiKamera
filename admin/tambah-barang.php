@@ -33,14 +33,14 @@
 	    //id Barang
 	    $kategori=$_POST['kategori'];
 	    $tglNow=date('dmy');
-	    $hitung=mysql_query("SELECT * FROM tb_barang WHERE id_kategori='$kategori' AND SUBSTR(id_barang, 4,6)='$tglNow'");
-	    $cek=mysql_num_rows($hitung);
+	    $hitung=mysqli_query($conn, "SELECT * FROM tb_barang WHERE id_kategori='$kategori' AND SUBSTR(id_barang, 4,6)='$tglNow'");
+	    $cek=mysqli_num_rows($hitung);
 	    if ($cek==0) {
 	        $urut=1;
 	    }else{
 	        $urut=$cek+1;
 	    }
-	    $ambilId=mysql_fetch_array($hitung);
+	    $ambilId=mysqli_fetch_array($hitung);
 	    if ($urut<10) {
 	        $urutan='0'.$urut;
 	    }else{
@@ -58,7 +58,7 @@
 	    if ($rasio==1) {
 	    	if ($imageSize<=$maxSize) {
 	    		if (in_array($imageTipe, $ekstensi_diperbolehkan) === true) {
-	                $insert=mysql_query("INSERT INTO `tb_barang` (`id_barang`, `nama_barang`, `harga_barang`, `harga_sewa`, `qty`, `img`, `id_kategori`) VALUES ('$idBarang', '$namaBarang', '$hargaBarang', '$hargaSewa', '$qty', '$imageName', '$kategori')");
+	                $insert=mysqli_query($conn, "INSERT INTO `tb_barang` (`id_barang`, `nama_barang`, `harga_barang`, `harga_sewa`, `qty`, `img`, `id_kategori`) VALUES ('$idBarang', '$namaBarang', '$hargaBarang', '$hargaSewa', '$qty', '$imageName', '$kategori')");
 	                if ($insert) {
 	                    move_uploaded_file($file_tmp, $path.$imageName);
 	                    ?>

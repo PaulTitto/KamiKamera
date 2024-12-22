@@ -3,9 +3,9 @@ include 'assets/php/db.php';
 if($_POST['rowid']) {
         $id = $_POST['rowid'];
         // mengambil data berdasarkan id
-        $sql=mysql_query("SELECT * FROM tb_barang WHERE id_barang = '$id'");
-        $kategori=mysql_query("SELECT * FROM tb_kategori") or die(mysql_error());
-        $hasil=mysql_fetch_array($sql);
+        $sql=mysqli_query($conn, "SELECT * FROM tb_barang WHERE id_barang = '$id'");
+        $kategori=mysqli_query($conn, "SELECT * FROM tb_kategori") or die(mysqli_error($conn));
+        $hasil=mysqli_fetch_array($sql);
         ?>
         
               <form method="POST" action="edit-barang.php" enctype="multipart/form-data">
@@ -13,7 +13,7 @@ if($_POST['rowid']) {
                   <label>Kategori</label>
                   <select class="form-control" name="kategori" onchange="idBarang(this.value)">
                     <option hidden value="0">Pilih Kategori</option>
-                    <?php while ($hasilKategori=mysql_fetch_array($kategori)) { 
+                    <?php while ($hasilKategori=mysqli_fetch_array($kategori)) { 
                         if ($hasilKategori['id_kategori']==$hasil['id_kategori']) {
                           $selected='selected';
                         }else{
