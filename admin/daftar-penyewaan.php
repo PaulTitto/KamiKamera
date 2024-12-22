@@ -43,7 +43,7 @@
                                     <th>Tanggal Kembali</th>
                                     <th>Harga Sewa</th>
                                     <th>Total Bayar</th>
-                                    <th>Foto Jaminan</th>
+                                    <th>Kartu Jaminan</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -106,8 +106,14 @@
                         <input type="text" class="form-control" id="totalBayar" name="totalBayar" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="fotoJaminan">Foto Jaminan</label>
-                        <input type="file" class="form-control" id="fotoJaminan" name="fotoJaminan" required>
+                        <label for="kartuJaminan">Kartu Jaminan</label>
+                        <select class="form-control" id="kartuJaminan" name="kartuJaminan" required>
+                            <option value="" disabled selected>Pilih Kartu Jaminan</option>
+                            <option value="ktp">KTP</option>
+                            <option value="sim">SIM</option>
+                            <option value="ktm">KTM</option>
+                            <option value="kta">KTA</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -174,12 +180,13 @@
                                     <td>${item.tgl_kembali}</td>
                                     <td>${item.harga_sewa}</td>
                                     <td>${item.total_bayar}</td>
-                                    <td><img src="${item.foto_jaminan}" alt="Jaminan" width="50"></td>
+                                    <td>${item.kartu_jaminan}</td>
                                     <td>${statusBadge}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-warning edit-btn" data-id="${item.no_transaksi}">Edit</button>
-                                        <button class="btn btn-sm btn-danger delete-btn" data-id="${item.no_transaksi}">Hapus</button>
+                                        <a href="edit-sewa.php?id=${item.no_transaksi}" class="btn btn-sm btn-warning">Edit</a>
+                                        <a href="delete-sewa.php?id=${item.no_transaksi}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
                                     </td>
+
                                 </tr>
                             `;
                         });
