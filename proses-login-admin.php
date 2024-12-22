@@ -30,7 +30,7 @@ if (isset($_POST['login'])) {
 
     if (mysqli_num_rows($login) == 0) { ?>
         <script language="JavaScript">
-            alertify.alert("Username Belum Terdaftar", function(){ window.location.assign('login-admin'); }).setHeader(' ').set({closable:false,transition:'pulse'});
+            alertify.alert("Admin Belum Terdaftar", function(){ window.location.assign('login-admin'); }).setHeader(' ').set({closable:false,transition:'pulse'});
         </script>
     <?php } else {
         if ($pass != $hasil['password']) { ?>
@@ -38,7 +38,7 @@ if (isset($_POST['login'])) {
                 alertify.alert("Password Salah", function(){ window.location.assign('login-admin'); }).setHeader(' ').set({closable:false,transition:'pulse'});
             </script>
         <?php } else {
-            $_SESSION['idUser'] = $hasil['id_user'];
+            $_SESSION['idAdmin'] = $hasil['id_admin'];
         ?>
             <script type="text/javascript">
                 window.location.assign('admin/index');
