@@ -128,7 +128,7 @@
         </div>
       </li>
 
-      <li class="nav-item <?=$statusPengembalian;?> <?=$statuslaporanPengembalian;?>">
+      <!-- <li class="nav-item <?=$statusPengembalian;?> <?=$statuslaporanPengembalian;?>">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengembalian" aria-expanded="true" aria-controls="collapsePengembalian">
           <i class="fas fa-fw fa-undo-alt text-light"></i>
           <span class="text-light">Pengembalian</span>
@@ -139,7 +139,7 @@
             <a class="collapse-item <?=$statuslaporanPengembalian;?>" href="daftar-laporanPengembalian?menu=laporanPengembalian">Laporan</a>
           </div>
         </div>
-      </li>
+      </li> -->
 
       <li class="nav-item <?=$statusPengadaan;?> <?=$statuslaporanPengadaan;?>">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengadaan" aria-expanded="true" aria-controls="collapsePengadaan">
