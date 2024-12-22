@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>LOGIN USER</title>
+  <title>LOGIN ADMIN</title>
 
   <!-- Font Awesome Icons -->
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -36,16 +36,16 @@
   <!-- About Section -->
   <section class="bg-primary p-5" id="about">
     <div class="container">
-    <form action="proses-login" method="POST">
+    <form action="proses-login-admin" method="POST">
       <div class="row justify-content-center">
         <div class="col-lg-8 text-center mt-5">
         <h4 class="h1">RENTAL<span class="text-light">CAMERA</span></h4>
         <hr class="divider-light">
-          <h2 class="text-white h5">Login</h2>
+          <h2 class="text-white h5">Login Admin</h2>
           <div class="card p-2 bg-light">
             <div class="form-group">
-              <label>Email</label>
-              <input type="email" name="email" class="form-control" required>
+              <label>Name</label>
+              <input type="name" name="name" class="form-control" required>
             </div>
             <div class="form-group">
               <label>Password</label>
@@ -54,8 +54,6 @@
           </div>
           <hr class="divider-light my-3">
           <button class="btn btn-dark btn-l js-scroll-trigger" name="login">Login</button>
-          <br>
-          <p>Belum punya akun? <a href="daftar-user.php">Daftar disini</a></p>
         </div>
       </div>
     </form>

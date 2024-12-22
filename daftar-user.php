@@ -102,7 +102,7 @@
   <!-- Footer -->
   <footer class="bg-light py-5">
     <div class="container">
-      <div class="small text-center text-muted">Copyright &copy; 2019 - Rafi&Femi | Repost by <a href='https://stokcoding.com/' title='StokCoding.com' target='_blank'>StokCoding.com</a>
+      <div class="small text-center text-muted">Copyright &copy; 2024 - Anonymous
       </div>
     </div>
   </footer>
