@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>FIFADVENTURE | Online</title>
+  <title>LOGIN USER</title>
 
   <!-- Font Awesome Icons -->
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -39,7 +39,7 @@
     <form action="proses-login" method="POST">
       <div class="row justify-content-center">
         <div class="col-lg-8 text-center mt-5">
-        <h4 class="h1">FIFA<span class="text-light">ADVENTURE</span></h4>
+        <h4 class="h1">RENTAL<span class="text-light">CAMERA</span></h4>
         <hr class="divider-light">
           <h2 class="text-white h5">Login</h2>
           <div class="card p-2 bg-light">
@@ -54,6 +54,8 @@
           </div>
           <hr class="divider-light my-3">
           <button class="btn btn-dark btn-l js-scroll-trigger" name="login">Login</button>
+          <br>
+          <p>Belum punya akun? <a href="daftar-user.php">Daftar disini</a></p>
         </div>
       </div>
     </form>
