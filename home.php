@@ -35,6 +35,19 @@ include 'assets/php/db.php';
   <!-- Theme CSS - Includes Bootstrap -->
   <link href="assets/css/creative.css" rel="stylesheet">
 
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+  <!-- Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
   <style type="text/css">
     header.masthead{
       padding-top:10rem;
@@ -72,6 +85,16 @@ include 'assets/php/db.php';
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Login
+            </a>
+            <div class="dropdown-menu" aria-labelledby="loginDropdown">
+                <a class="dropdown-item" href="login-user.php">User</a>
+                <a class="dropdown-item" href="login-admin.php">Admin</a>
+            </div>
+           </li>
+
         </ul>
       </div>
     </div>
