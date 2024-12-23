@@ -10,14 +10,14 @@
     case 'dashboard':
       $showPenyewaan='collapse';
       $showPengembalian='collapse';      
-      $showPengadaan='collapse';  
+      // $showPengadaan='collapse';  
       $statusDashboard='active';
       break;
 
     case 'barang':
       $showPenyewaan='collapse';
       $showPengembalian='collapse'; 
-      $showPengadaan='collapse'; 
+      // $showPengadaan='collapse'; 
       $statusBarang='active';
       break;
 
@@ -25,20 +25,20 @@
       $showPenyewaan='collapse show';      
       $statusPenyewaan='active';
       $statuslaporanPenyewaan='';
-      $showPengadaan='collapse';
+      // $showPengadaan='collapse';
       $showPengembalian='collapse';
       break;
 
     case 'laporanPenyewaan':
       $showPenyewaan='collapse show';  
-      $showPengadaan='collapse';
+      // $showPengadaan='collapse';
       $showPengembalian='collapse';   
       $statuslaporanPenyewaan='active';
       break;
 
     case 'pengembalian':
       $showPenyewaan='collapse';
-      $showPengadaan='collapse';
+      // $showPengadaan='collapse';
       $showPengembalian='collapse show';  
       $statusPengembalian='active';   
       $statuslaporanPengembalian='';
@@ -46,42 +46,42 @@
       
     case 'laporanPengembalian':
       $showPenyewaan='collapse';
-      $showPengadaan='collapse';
+      // $showPengadaan='collapse';
       $showPengembalian='collapse show';  
       $statusPengembalian='';   
       $statuslaporanPengembalian='active';
       break;
 
-    case 'Pengadaan':
-      $showPenyewaan='collapse';
-      $showPengembalian='collapse';
-      $showPengadaan='collapse show';  
-      $statusPengadaan='active';   
-      $statuslaporanPengadaan='';
-      break;
+    // case 'Pengadaan':
+    //   $showPenyewaan='collapse';
+    //   $showPengembalian='collapse';
+    //   $showPengadaan='collapse show';  
+    //   $statusPengadaan='active';   
+    //   $statuslaporanPengadaan='';
+    //   break;
       
-    case 'laporanPengadaan':
-      $showPenyewaan='collapse';
-      $showPengembalian='collapse';
-      $showPengadaan='collapse show';  
-      $statusPengadaan='';   
-      $statuslaporanPengadaan='active';
-      break;
+    // case 'laporanPengadaan':
+    //   $showPenyewaan='collapse';
+    //   $showPengembalian='collapse';
+    //   $showPengadaan='collapse show';  
+    //   $statusPengadaan='';   
+    //   $statuslaporanPengadaan='active';
+    //   break;
 
-    case 'notaPengadaan':
-      $showPenyewaan='collapse';
-      $showPengembalian='collapse';
-      $showPengadaan='collapse show';  
-      $statusPengadaan='';   
-      $statuslaporanPengadaan='';
-      $statusNotaPengadaan='active';
-      break;
+    // case 'notaPengadaan':
+    //   $showPenyewaan='collapse';
+    //   $showPengembalian='collapse';
+    //   $showPengadaan='collapse show';  
+    //   $statusPengadaan='';   
+    //   $statuslaporanPengadaan='';
+    //   $statusNotaPengadaan='active';
+    //   break;
 
     default:
         $statusPenyewaan='';
         $showPenyewaan='collapse';
         $showPengembalian='collapse';
-        $showPengadaan='collapse';
+        // $showPengadaan='collapse';
       break;
   }
 ?>
@@ -141,7 +141,7 @@
         </div>
       </li> -->
 
-      <li class="nav-item <?=$statusPengadaan;?> <?=$statuslaporanPengadaan;?>">
+      <!-- <li class="nav-item <?=$statusPengadaan;?> <?=$statuslaporanPengadaan;?>">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengadaan" aria-expanded="true" aria-controls="collapsePengadaan">
           <i class="fas fa-fw fa-folder-plus text-light"></i>
           <span class="text-light">Pengadaan Barang</span>
@@ -153,7 +153,7 @@
             <a class="collapse-item <?=$statuslaporanPengadaan;?>" href="daftar-laporanPengadaan?menu=laporanPengadaan">Laporan</a>
           </div>
         </div>
-      </li>
+      </li> -->
 
       <li class="nav-item">
         <a class="nav-link" href="#">
