@@ -22,13 +22,26 @@ switch ($method) {
         if (!empty($_POST['nama_barang']) && !empty($_POST['harga_barang']) &&
             !empty($_POST['harga_sewa']) && !empty($_POST['qty']) &&
             isset($_FILES['img']) && !empty($_POST['id_kategori'])) {
-
+        
             $nama_barang = $conn->real_escape_string($_POST['nama_barang']);
             $harga_barang = $conn->real_escape_string($_POST['harga_barang']);
             $harga_sewa = $conn->real_escape_string($_POST['harga_sewa']);
             $qty = $conn->real_escape_string($_POST['qty']);
             $id_kategori = $conn->real_escape_string($_POST['id_kategori']);
-
+        
+            // Generate ID Barang
+            $tanggal = date("d");
+            $bulan = date("m");
+        
+            // Get the last order number for the current category
+            $query_urutan = "SELECT COUNT(*) as total FROM tb_barang WHERE id_kategori = '$id_kategori'";
+            $result_urutan = $conn->query($query_urutan);
+            $row_urutan = $result_urutan->fetch_assoc();
+            $urutan = $row_urutan['total'] + 1; // Increment the count for the next item
+            $urutan_formatted = sprintf("%03d", $urutan); // Format as 3 digits
+        
+            $id_barang = $id_kategori . $tanggal . $bulan . $urutan_formatted;
+        
             // Upload file logic
             $img = $_FILES['img'];
             $ext = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
@@ -36,12 +49,12 @@ switch ($method) {
             if (in_array($ext, $allowed_ext) && $img['size'] <= 1048576) { // Max size 1MB
                 $img_name = uniqid() . '.' . $ext;
                 $upload_path = __DIR__ . '/../img/barang/' . $img_name;
-
+        
                 if (move_uploaded_file($img['tmp_name'], $upload_path)) {
                     $query = "INSERT INTO tb_barang (id_barang, nama_barang, harga_barang, harga_sewa, qty, img, id_kategori) 
-                              VALUES (UUID(), '$nama_barang', '$harga_barang', '$harga_sewa', '$qty', '$img_name', '$id_kategori')";
+                                VALUES ('$id_barang', '$nama_barang', '$harga_barang', '$harga_sewa', '$qty', '$img_name', '$id_kategori')";
                     if ($conn->query($query)) {
-                        echo json_encode(["status" => "success", "message" => "Barang berhasil ditambahkan."]);
+                        echo json_encode(["status" => "success", "message" => "Barang berhasil ditambahkan.", "id_barang" => $id_barang]);
                     } else {
                         echo json_encode(["status" => "error", "message" => $conn->error]);
                     }
@@ -54,7 +67,7 @@ switch ($method) {
         } else {
             echo json_encode(["status" => "error", "message" => "Semua field harus diisi."]);
         }
-        break;
+    break;
 
     case 'PUT':
         $input = json_decode(file_get_contents('php://input'), true);
