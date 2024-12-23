@@ -10,6 +10,22 @@
     <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    
+    <style>
+        .status-dipinjam {
+            color: #fff;
+            background-color: #dc3545;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .status-dikembalikan {
+            color: #fff;
+            background-color: #28a745;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+
 </head>
 <body id="page-top">
 <div id="wrapper">
@@ -23,7 +39,7 @@
 
                 <!-- Tombol Tambah Penyewaan -->
                 <div class="mb-3">
-                    <button id="btn-tambah-penyewaan" class="btn btn-sm btn-primary">
+                    <button id="btn-tambah-penyewaan" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalTambahPenyewaan">
                         <i class="fas fa-plus"></i> Tambah Penyewaan
                     </button>
                 </div>
@@ -72,47 +88,57 @@
                 </button>
             </div>
             <form id="form-tambah-penyewaan">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="id_transaksi">ID Penyewaan</label>
+                    <input type="text" class="form-control" id="id_transaksi" name="id_transaksi" required>
+                </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="namaPemesan">Nama Pemesan</label>
-                        <input type="text" class="form-control" id="namaPemesan" name="namaPemesan" required>
+                        <input type="text" class="form-control" id="namaPemesan" name="nama_pemesan" required>
                     </div>
                     <div class="form-group">
                         <label for="namaBarang">Nama Barang</label>
-                        <select class="form-control" id="namaBarang" name="namaBarang" required>
+                        <select class="form-control" id="namaBarang" name="nama_barang" required>
                             <option value="" disabled selected>Pilih Barang</option>
-                            <option value="1" data-harga="50000">Kamera A</option>
-                            <option value="2" data-harga="75000">Kamera B</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="lamaSewa">Lama Sewa (hari)</label>
-                        <input type="number" class="form-control" id="lamaSewa" name="lamaSewa" readonly>
+                        <input type="number" class="form-control" id="lamaSewa" name="lama_sewa" readonly>
                     </div>
                     <div class="form-group">
                         <label for="tglPesan">Tanggal Pesan</label>
-                        <input type="date" class="form-control" id="tglPesan" name="tglPesan" required>
+                        <input type="date" class="form-control" id="tglPesan" name="tgl_pesan" required>
                     </div>
                     <div class="form-group">
                         <label for="tglKembali">Tanggal Kembali</label>
-                        <input type="date" class="form-control" id="tglKembali" name="tglKembali" required>
+                        <input type="date" class="form-control" id="tglKembali" name="tgl_kembali" required>
                     </div>
                     <div class="form-group">
                         <label for="hargaSewa">Harga Sewa (per hari)</label>
-                        <input type="text" class="form-control" id="hargaSewa" name="hargaSewa" readonly>
+                        <input type="text" class="form-control" id="hargaSewa" name="harga_sewa" readonly>
                     </div>
                     <div class="form-group">
                         <label for="totalBayar">Total Bayar</label>
-                        <input type="text" class="form-control" id="totalBayar" name="totalBayar" readonly>
+                        <input type="text" class="form-control" id="totalBayar" name="total_bayar" readonly>
                     </div>
                     <div class="form-group">
                         <label for="kartuJaminan">Kartu Jaminan</label>
-                        <select class="form-control" id="kartuJaminan" name="kartuJaminan" required>
+                        <select class="form-control" id="kartuJaminan" name="kartu_jaminan" required>
                             <option value="" disabled selected>Pilih Kartu Jaminan</option>
                             <option value="ktp">KTP</option>
                             <option value="sim">SIM</option>
                             <option value="ktm">KTM</option>
                             <option value="kta">KTA</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="statusPenyewaan">Status</label>
+                        <select class="form-control" id="statusPenyewaan" name="status">
+                            <option value="Dipinjam" class="status-dipinjam">Dipinjam</option>
+                            <option value="Dikembalikan" class="status-dikembalikan">Dikembalikan</option>
                         </select>
                     </div>
                 </div>
@@ -132,108 +158,122 @@
 <script src="assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script>
     $(document).ready(function () {
-        // Hitung lama sewa dan total bayar
-        $('#tglPesan, #tglKembali').on('change', function () {
-            const tglPesan = new Date($('#tglPesan').val());
-            const tglKembali = new Date($('#tglKembali').val());
-            if (tglPesan && tglKembali && tglKembali > tglPesan) {
-                const lamaSewa = Math.ceil((tglKembali - tglPesan) / (1000 * 60 * 60 * 24));
-                $('#lamaSewa').val(lamaSewa);
-                const hargaSewa = parseInt($('#hargaSewa').val()) || 0;
-                $('#totalBayar').val(lamaSewa * hargaSewa);
-            } else {
-                $('#lamaSewa').val('');
-                $('#totalBayar').val('');
-            }
-        });
-
-        // Isi harga sewa saat nama barang dipilih
-        $('#namaBarang').on('change', function () {
-            const selectedOption = $(this).find('option:selected');
-            const harga = selectedOption.data('harga');
-            $('#hargaSewa').val(harga);
-            const lamaSewa = parseInt($('#lamaSewa').val()) || 0;
-            $('#totalBayar').val(lamaSewa * harga);
-        });
-
-        // Memuat data tabel
-        function loadTableData() {
+        // Fungsi untuk memuat data barang dari database
+        function loadBarangOptions() {
             $.ajax({
-                url: 'http://localhost/rentalcam/admin/assets/php/pengembalian.php',
+                url: 'load-barang.php', // Mengambil data barang dari tabel tb_barang
                 method: 'GET',
                 dataType: 'json',
                 success: function (response) {
                     if (response.status === 'success') {
-                        let rows = '';
+                        let options = '<option value="" disabled selected>Pilih Barang</option>';
                         $.each(response.data, function (index, item) {
-                            const statusBadge = item.status === 'Dipinjam'
-                                ? '<span class="badge badge-warning">Dipinjam</span>'
-                                : '<span class="badge badge-success">Dikembalikan</span>';
-                            rows += `
-                                <tr>
-                                    <td>${index + 1}</td>
-                                    <td>${item.no_transaksi}</td>
-                                    <td>${item.nama_pemesan}</td>
-                                    <td>${item.nama_barang}</td>
-                                    <td>${item.lama_sewa}</td>
-                                    <td>${item.tgl_pesan}</td>
-                                    <td>${item.tgl_kembali}</td>
-                                    <td>${item.harga_sewa}</td>
-                                    <td>${item.total_bayar}</td>
-                                    <td>${item.kartu_jaminan}</td>
-                                    <td>${statusBadge}</td>
-                                    <td>
-                                        <a href="edit-sewa.php?id=${item.no_transaksi}" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="delete-sewa.php?id=${item.no_transaksi}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
-                                    </td>
-
-                                </tr>
-                            `;
+                            options += `<option value="${item.id_barang}" data-harga="${item.harga_sewa}">${item.nama_barang}</option>`;
                         });
-                        $('#table-content').html(rows);
+                        $('#namaBarang').html(options); // Isi dropdown
                     } else {
-                        alert('Gagal memuat data.');
+                        alert('Gagal memuat data barang: ' + response.message);
                     }
                 },
-                error: function () {
-                    alert('Kesalahan server.');
+                error: function (xhr, status, error) {
+                    alert('Kesalahan server: ' + error);
                 }
             });
         }
 
-        // Tombol Tambah Penyewaan
-        $('#btn-tambah-penyewaan').click(function () {
-            $('#modalTambahPenyewaan').modal('show');
+        // Fungsi untuk menghitung lama sewa
+        function hitungLamaSewa() {
+            const tglPesan = $('#tglPesan').val();
+            const tglKembali = $('#tglKembali').val();
+
+            if (tglPesan && tglKembali) {
+                const date1 = new Date(tglPesan);
+                const date2 = new Date(tglKembali);
+
+                if (date2 >= date1) {
+                    const diffTime = Math.abs(date2 - date1);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    $('#lamaSewa').val(diffDays);
+                    hitungTotalBayar();
+                } else {
+                    alert('Tanggal kembali tidak boleh lebih awal dari tanggal pesan!');
+                    $('#tglKembali').val('');
+                    $('#lamaSewa').val('');
+                    $('#totalBayar').val('');
+                }
+            }
+        }
+
+        // Fungsi untuk menghitung total bayar
+        function hitungTotalBayar() {
+            const lamaSewa = parseInt($('#lamaSewa').val()) || 0;
+            const hargaSewa = parseFloat($('#hargaSewa').val()) || 0;
+            const totalBayar = lamaSewa * hargaSewa;
+            $('#totalBayar').val(totalBayar.toFixed(2));
+        }
+
+        // Fungsi untuk memuat data transaksi terbaru ke dalam tabel
+        function loadTransaksiTable() {
+            $.ajax({
+                url: 'load-transaksi.php', // Endpoint untuk mengambil data dari tb_transaksi
+                method: 'GET',
+                dataType: 'html',
+                success: function (response) {
+                    $('#table-content').html(response); // Memuat data ke tbody tabel
+                },
+                error: function (xhr, status, error) {
+                    alert('Gagal memuat data transaksi: ' + error);
+                }
+            });
+        }
+
+        // Event Listener untuk Dropdown Nama Barang
+        $(document).on('change', '#namaBarang', function () {
+            const selectedOption = $(this).find(':selected');
+            const hargaSewa = selectedOption.data('harga');
+            $('#hargaSewa').val(hargaSewa || '');
+            hitungTotalBayar();
         });
 
-        // Form submit handler
-        $('#form-tambah-penyewaan').submit(function (e) {
-            e.preventDefault();
-            const formData = new FormData(this);
+        // Event Listener untuk input tanggal pesan dan tanggal kembali
+        $(document).on('change', '#tglPesan, #tglKembali', function () {
+            hitungLamaSewa();
+        });
+
+        // Submit Form Tambah Penyewaan
+        $('#form-tambah-penyewaan').on('submit', function (e) {
+            e.preventDefault(); // Mencegah reload halaman
+
+            // Ambil data dari form
+            const formData = $(this).serialize();
+
+            // Kirim data ke server untuk disimpan di database
             $.ajax({
-                url: 'http://localhost/rentalcam/admin/assets/php/tambahTransaksi.php',
+                url: 'simpan-transaksi.php', // Endpoint untuk menyimpan data ke tb_transaksi
                 method: 'POST',
                 data: formData,
-                contentType: false,
-                processData: false,
                 success: function (response) {
-                    if (response.status === 'success') {
-                        alert('Data berhasil ditambahkan!');
-                        $('#modalTambahPenyewaan').modal('hide');
-                        loadTableData();
+                    const res = JSON.parse(response);
+                    if (res.status === 'success') {
+                        alert('Data berhasil disimpan!');
+                        $('#modalTambahPenyewaan').modal('hide'); // Tutup modal
+                        $('#form-tambah-penyewaan')[0].reset(); // Reset form
+                        loadTransaksiTable(); // Muat ulang data tabel
                     } else {
-                        alert('Gagal menambahkan data.');
+                        alert('Gagal menyimpan data: ' + res.message);
                     }
                 },
-                error: function () {
-                    alert('Kesalahan server.');
+                error: function (xhr, status, error) {
+                    alert('Kesalahan server: ' + error);
                 }
             });
         });
 
-        // Memuat data saat halaman dimuat
-        loadTableData();
+        // Muat data barang dan transaksi saat halaman dimuat
+        loadBarangOptions();
+        loadTransaksiTable();
     });
 </script>
+
 </body>
 </html>
