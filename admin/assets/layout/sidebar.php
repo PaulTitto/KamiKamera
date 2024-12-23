@@ -155,11 +155,11 @@
         </div>
       </li> -->
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="#">
           <i class="fas fa-fw fa-wallet text-light"></i>
           <span class="text-light">Pembukuan</span></a>
-      </li>
+      </li> -->
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
