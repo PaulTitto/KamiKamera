@@ -127,7 +127,7 @@ include 'assets/php/db.php';
                           <h2 class="text-white ">Book your dream camera now!</h2>
 <!--                          <hr class="divider-light my-2 align-items-md-start">-->
                           <h5 class="text-white mb-4">Rent a camera online now from one of our worldwide locations. With over 20 years of experience in camera rentals and customer service, all we need is your ID, and you can book any camera you desire.</h5>
-                          <a class="btn btn-light btn-l js-scroll-trigger mx-2" href="#online">Rent Now</a> 
+                          <a class="btn btn-light btn-l js-scroll-trigger mx-2" href="login-user.php">Rent Now</a> 
                           <span class="text-white">Atau </span>
                           <button class="btn btn-dark btn-l js-scroll-trigger mx-2" onclick="window.location.assign('barang-sewa?p=1&k=all')">Lihat Barang</button>
                       </div>
