@@ -153,7 +153,7 @@ include 'assets/php/db.php';
         </div>
         <div class="col-lg-3 col-md-6 text-center">
           <div class="mt-5">
-            <i class="fas fa-4x fa-campground text-primary mb-4"></i>
+            <i class="fas fa-4x fa-solid fa-camera text-primary mb-4"></i>
             <h3 class="h4 mb-2">Camera Rentals</h3>
             <p class="text-muted mb-0">We offer the best cameras for rent across the world at competitive prices, ensuring top-quality equipment for your needs.</p>
           </div>
@@ -202,7 +202,7 @@ include 'assets/php/db.php';
   <!-- Footer -->
   <footer class="bg-light py-5">
     <div class="container">
-      <div class="small text-center text-muted">Copyright &copy; 2024 - Anonymous</a>
+      <div class="small text-center text-muted">Copyright &copy; 2024 - Anonymous - KAMIKAMERA RENCAMS</a>
       </div>
     </div>
   </footer>
