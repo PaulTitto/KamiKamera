@@ -38,7 +38,7 @@
                                     <th>No</th>
                                     <th>Id Barang</th>
                                     <th>Nama Barang</th>
-                                    <th>Harga Barang</th>
+                                    <th>Harga Beli Barang</th>
                                     <th>Harga Sewa (hari)</th>
                                     <th>Qty</th>
                                     <th>Image</th>

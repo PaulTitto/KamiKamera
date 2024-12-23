@@ -123,7 +123,7 @@ $result = $stmt->get_result();
         <div class="row">
             <?php while ($hasil = $result->fetch_assoc()) {
                 $namaBarang = (strlen($hasil['nama_barang']) > 16) ? substr($hasil['nama_barang'], 0, 16) . "..." : $hasil['nama_barang'];
-                $status = $hasil['qty'] > 5 ? '<span class="badge badge-success">Tersedia</span>' :
+                $status = $hasil['qty'] >= 2 ? '<span class="badge badge-success">Tersedia</span>' :
                     ($hasil['qty'] > 0 ? '<span class="badge badge-warning">Hampir Habis</span>' :
                         '<span class="badge badge-secondary">Tidak Tersedia</span>');
                 ?>
@@ -148,7 +148,7 @@ $result = $stmt->get_result();
 
 <footer class="bg-light py-5">
     <div class="container">
-        <div class="small text-center text-muted">Copyright &copy; 2019 - Rafi&Femi</div>
+        <div class="small text-center text-muted">Copyright &copy; 2019 - KAMIKAMERA RENCAMS</div>
     </div>
 </footer>
 </body>
