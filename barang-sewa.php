@@ -63,7 +63,7 @@ $result = $stmt->get_result();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>FIFADVENTURE | Online</title>
+    <title>KamiKamera RENCAMS | Online</title>
 
     <!-- Styles -->
     <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
