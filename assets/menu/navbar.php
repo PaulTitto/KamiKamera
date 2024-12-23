@@ -2,7 +2,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-light fixed-top  py-3" id="mainNav" style="background-color: #fff; box-shadow: 1px -60px 122px 1px #757575; z-index: 9999;">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="index" style="text-shadow: 1px 1px 5px #fff; color: #000;">FIFA<span class="text-primary">DVENTURE</span></a>
+      <a class="navbar-brand js-scroll-trigger" href="index" style="text-shadow: 1px 1px 5px #fff; color: #000;">KamiKamera <span class="text-primary">RENCAMS</span></a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

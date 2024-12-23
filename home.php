@@ -183,17 +183,17 @@ include 'assets/php/db.php';
       <div class="row">
         <div class="col-lg-4 ml-auto text-center">
           <i class="fab fa-whatsapp fa-4x mb-3 text-muted"></i>
-          <a class="d-block text-muted decoration-none" href="https://api.whatsapp.com/send?phone=6289612325104" target="blank">+6289612325104</a>
+          <a class="d-block text-muted decoration-none" href="https://api.whatsapp.com/send?phone=6281393150934" target="blank">+6281393150934</a>
         </div>
         <div class="col-lg-4 mr-auto text-center">
           <i class="fas fa-store-alt fa-4x mb-3 text-muted"></i>
           <!-- Make sure to change the email address in anchor text AND the link below! -->
-          <a class="d-block text-muted decoration-none" href="https://www.google.com/maps/@-6.9499304,107.6245194,21z" target="blank">Jl Soekarno Hatta (Depan Kampus LPKIA) Bandung - Jawa Barat</a>
+          <a class="d-block text-muted decoration-none" href="" target="blank">Jl. Ahmad Yani, Pabelan, Kec. Kartasura, Kabupaten Sukoharjo, Jawa Tengah</a>
         </div>
         <div class="col-lg-4 mr-auto text-center">
           <i class="fab fa-instagram fa-4x mb-3 text-muted"></i>
           <!-- Make sure to change the email address in anchor text AND the link below! -->
-          <a class="d-block text-muted decoration-none" href="https://www.instagram.com/rental_alatcampingbandung/" target="blank">@rental_alatcampingbandung</a>
+          <a class="d-block text-muted decoration-none" href="" target="blank">@kamikamera_rencams</a>
         </div>
       </div>
     </div>
@@ -202,7 +202,7 @@ include 'assets/php/db.php';
   <!-- Footer -->
   <footer class="bg-light py-5">
     <div class="container">
-      <div class="small text-center text-muted">Copyright &copy; 2019 - Rafi&Femi | Repost by <a href='https://stokcoding.com/' title='StokCoding.com' target='_blank'>StokCoding.com</a>
+      <div class="small text-center text-muted">Copyright &copy; 2024 - Anonymous</a>
       </div>
     </div>
   </footer>
