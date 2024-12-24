@@ -116,6 +116,28 @@ $result = $stmt->get_result();
         /* Tambahkan margin antara daftar barang dan pagination */
         .row + .row {
             margin-top: 20px;
+        
+        }
+        /* Gaya untuk kategori dropdown */
+        form select.form-control:focus {
+            border-color: #2ebdff;
+            box-shadow: 0 0 0 0.2rem rgba(46, 189, 255, 0.5);
+        }
+        /* Gaya untuk input search saat fokus */
+        form input.form-control:focus {
+            border-color: #2ebdff;
+            box-shadow: 0 0 0 0.2rem rgba(46, 189, 255, 0.5);
+        }
+        /* Gaya untuk tombol pencarian */
+        form button.btn-primary {
+            border-color: #2ebdff; /* Default border color */
+        }
+
+        form button.btn-primary:focus,
+        form button.btn-primary:active {
+            background-color: #2ebdff !important;
+            border-color: #2ebdff !important;
+            box-shadow: 0 0 0 0.2rem rgba(46, 189, 255, 0.5);
         }
     </style>
 </head>
