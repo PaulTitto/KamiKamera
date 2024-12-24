@@ -1,9 +1,10 @@
 <?php
 include 'assets/php/db.php'; // Koneksi ke database
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validasi input dari form
-    $required_fields = ['nama_pemesan', 'nama_barang', 'lama_sewa', 'tgl_pesan', 'tgl_kembali', 'harga_sewa', 'total_bayar', 'kartu_jaminan', 'status'];
+    $required_fields = ['id_transaksi', 'nama_pemesan', 'nama_barang', 'lama_sewa', 'tgl_pesan', 'tgl_kembali', 'harga_sewa', 'total_bayar', 'kartu_jaminan', 'status'];
     foreach ($required_fields as $field) {
         if (empty($_POST[$field])) {
             echo json_encode(['status' => 'error', 'message' => "Field $field wajib diisi."]);
@@ -12,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Ambil data dari form
+    $id_transaksi = $_POST['id_transaksi'];
     $nama_pemesan = $_POST['nama_pemesan'];
     $id_barang = $_POST['id_barang'];
     $nama_barang = $_POST['nama_barang'];
@@ -24,8 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = $_POST['status'];
 
     // Query untuk menyimpan data
-    $query = "INSERT INTO tb_transaksi (nama_pemesan, id_barang, nama_barang, lama_sewa, tgl_pesan, tgl_kembali, harga_sewa, total_bayar, kartu_jaminan, status) 
-              VALUES ('$nama_pemesan', '$id_barang', '$nama_barang', '$lama_sewa', '$tgl_pesan', '$tgl_kembali', '$harga_sewa', '$total_bayar', '$kartu_jaminan', '$status')";
+    $query = "INSERT INTO tb_transaksi (id_transaksi, nama_pemesan, id_barang, nama_barang, lama_sewa, tgl_pesan, tgl_kembali, harga_sewa, total_bayar, kartu_jaminan, status) 
+              VALUES ('$id_transaksi', '$nama_pemesan', '$id_barang', '$nama_barang', '$lama_sewa', '$tgl_pesan', '$tgl_kembali', '$harga_sewa', '$total_bayar', '$kartu_jaminan', '$status')";
 
     // Eksekusi query
     if (mysqli_query($conn, $query)) {

@@ -227,10 +227,14 @@
         $(document).on('change', '#namaBarang', function () {
         const selectedOption = $(this).find(':selected');
         const idBarang = selectedOption.val(); // Ambil id_barang
+        const namaBarang = selectedOption.text(); // Ambil nama_barang dari teks dropdown
         const hargaSewa = selectedOption.data('harga'); // Ambil harga_sewa
+
         $('#idBarang').val(idBarang); // Isi input ID Barang
         $('#hargaSewa').val(hargaSewa); // Isi input Harga Sewa
+        $('#hiddenNamaBarang').val(namaBarang); // Isi input hidden dengan nama barang
     });
+
 
 
 
@@ -290,7 +294,7 @@
                 $.ajax({
                     url: 'hapus-transaksi.php',
                     method: 'POST',
-                    data: { id : id_transaksi },
+                    data: { id_transaksi : id },
                     success: function (res) {
                         const response = JSON.parse(res);
                         if (response.status === 'success') {
@@ -306,7 +310,7 @@
 
         // Muat data saat halaman dimuat
         loadTransaksiTable();
-    });
+         });
 
         // Fungsi untuk menghitung lama sewa
         function hitungLamaSewa() {
