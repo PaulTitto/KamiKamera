@@ -3,7 +3,7 @@ include 'assets/php/db.php'; // Pastikan file koneksi sudah ada
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     $id = $_GET['id'];
-    $query = "SELECT * FROM tb_transaksi WHERE no_transaksi = ?";
+    $query = "SELECT * FROM tb_transaksi WHERE id_transaksi = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param('s', $id);
     $stmt->execute();
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
         die('Data tidak ditemukan!');
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['no_transaksi'];
+    $id = $_POST['id_transaksi'];
     $nama_pemesan = $_POST['nama_pemesan'];
     $nama_barang = $_POST['nama_barang'];
     $lama_sewa = $_POST['lama_sewa'];
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     $kartu_jaminan = $_POST['kartu_jaminan'];
     $status = $_POST['status'];
 
-    $query = "UPDATE tb_transaksi SET nama_pemesan = ?, nama_barang = ?, lama_sewa = ?, tgl_pesan = ?, tgl_kembali = ?, harga_sewa = ?, total_bayar = ?, kartu_jaminan = ?, status = ? WHERE no_transaksi = ?";
+    $query = "UPDATE tb_transaksi SET nama_pemesan = ?, nama_barang = ?, lama_sewa = ?, tgl_pesan = ?, tgl_kembali = ?, harga_sewa = ?, total_bayar = ?, kartu_jaminan = ?, status = ? WHERE id_transaksi = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param('ssisssisss', $nama_pemesan, $nama_barang, $lama_sewa, $tgl_pesan, $tgl_kembali, $harga_sewa, $total_bayar, $kartu_jaminan, $status, $id);
 
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 <div class="container">
     <h2 class="mt-4">Edit Penyewaan</h2>
     <form method="POST">
-        <input type="hidden" name="no_transaksi" value="<?= $data['no_transaksi'] ?>">
+        <input type="hidden" name="id_transaksi" value="<?= $data['id_transaksi'] ?>">
         <div class="form-group">
             <label>Nama Pemesan</label>
             <input type="text" name="nama_pemesan" class="form-control" value="<?= $data['nama_pemesan'] ?>" required>
