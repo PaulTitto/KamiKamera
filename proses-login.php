@@ -41,7 +41,7 @@ if (isset($_POST['login'])) {
             $_SESSION['idUser'] = $hasil['id_user'];
         ?>
             <script type="text/javascript">
-                window.location.assign('home');
+                window.location.assign('penyewaan-user');
             </script>
         <?php
         }
