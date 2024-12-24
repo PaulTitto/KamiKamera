@@ -1,3 +1,28 @@
+<?php
+require 'assets/php/db.php'; // Sesuaikan dengan konfigurasi database Anda
+
+function generateIdTransaksi($conn) {
+    $tanggal = date("dmy");
+    $prefix = "TR" . $tanggal . "01";
+
+    $query = "SELECT MAX(id_transaksi) AS max_id FROM tb_transaksi WHERE id_transaksi LIKE '$prefix%'";
+    $result = $conn->query($query);
+    if (!$result) {
+        die("Query ID Transaksi gagal: " . $conn->error);
+    }
+    $row = $result->fetch_assoc();
+
+    $last_id = $row['max_id'] ?? $prefix . "00";
+    $last_number = (int) substr($last_id, -2);
+
+    return $prefix . str_pad($last_number + 1, 2, "0", STR_PAD_LEFT);
+}
+
+// Panggil fungsi untuk mendapatkan ID Transaksi
+$id_transaksi = generateIdTransaksi($conn);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,10 +115,11 @@
             </div>
             <form id="form-tambah-penyewaan">
             <div class="modal-body">
-                <div class="form-group">
-                    <label for="id_transaksi">ID Penyewaan</label>
-                    <input type="text" class="form-control" id="id_transaksi" name="id_transaksi" required>
-                </div>
+            <div class="form-group">
+                <label for="id_transaksi">ID Penyewaan</label>
+                <input type="text" class="form-control" id="id_transaksi" name="id_transaksi" value="<?php echo $id_transaksi; ?>" readonly>
+            </div>
+
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="namaPemesan">Nama Pemesan</label>
