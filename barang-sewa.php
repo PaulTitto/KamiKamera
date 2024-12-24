@@ -85,6 +85,38 @@ $result = $stmt->get_result();
         .my-float {
             margin-top: 1px;
         }
+        .form-inline {
+            display: flex;
+            align-items: center; /* Vertikal rata tengah */
+            gap: 8px; /* Jarak antar elemen */
+        }
+
+        .form-inline .form-control {
+            flex: 1; /* Input field mengambil sisa ruang */
+        }
+        .pagination .page-link {
+            color: #2ebdff; /* Biru */
+            border: 1px solid#2ebdff;
+            margin: 0 2px;
+        }
+
+        .pagination .page-link:hover {
+            background-color:#2ebdff;
+            color: white;
+        }
+
+        .pagination .active .page-link {
+            background-color:#2ebdff;
+            color: white;
+            border-color:#2ebdff;
+        }
+        .pagination-container{
+            margin-top: 40px;
+        }
+        /* Tambahkan margin antara daftar barang dan pagination */
+        .row + .row {
+            margin-top: 20px;
+        }
     </style>
 </head>
 
@@ -113,10 +145,10 @@ $result = $stmt->get_result();
                     <?php } ?>
                 </select>
             </form>
-            <form method="GET">
+            <form method="GET" class="form-inline">
                 <input type="hidden" name="k" value="<?= htmlspecialchars($category); ?>">
-                <input type="text" name="search" placeholder="Cari Barang..." class="form-control mr-1" value="<?= htmlspecialchars($search); ?>">
-                <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+                <input type="text" name="search" placeholder="Cari Barang..." class="form-control mr-2" value="<?= htmlspecialchars($search); ?>">
+                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
 
@@ -142,6 +174,35 @@ $result = $stmt->get_result();
                     </div>
                 </div>
             <?php } ?>
+        </div>
+    </div>
+    <div class="row pagination-container">
+        <div class="col-md-12 text-center">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <?php if ($page > 1) : ?>
+                        <li class="page-item">
+                            <a class="page-link" href="?k=<?= htmlspecialchars($category); ?>&search=<?= htmlspecialchars($search); ?>&p=<?= $page - 1; ?>">
+                                Previous
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                    <?php for ($i = 1; $i <= $pages; $i++) : ?>
+                        <li class="page-item <?= $i === $page ? 'active' : ''; ?>">
+                            <a class="page-link" href="?k=<?= htmlspecialchars($category); ?>&search=<?= htmlspecialchars($search); ?>&p=<?= $i; ?>">
+                                <?= $i; ?>
+                            </a>
+                        </li>
+                    <?php endfor; ?>
+                    <?php if ($page < $pages) : ?>
+                        <li class="page-item">
+                            <a class="page-link" href="?k=<?= htmlspecialchars($category); ?>&search=<?= htmlspecialchars($search); ?>&p=<?= $page + 1; ?>">
+                                Next
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
         </div>
     </div>
 </section>
