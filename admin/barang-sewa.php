@@ -26,7 +26,9 @@
             <div class="container-fluid">
                 <h1 class="h3 mb-4 text-gray-800">Barang Sewa</h1>
                 <!-- Button to Open the Modal -->
-                <button class="btn btn-warning btn-sm mb-3" data-toggle="modal" data-target="#tambahModal">Tambah Barang</button>
+                <button class="btn btn-warning btn-sm mb-3" data-toggle="modal" data-target="#tambahModal">
+                    <i class="fas fa-plus"></i> Tambah Barang
+                </button>
 
 
                 <div class="card shadow mb-4">

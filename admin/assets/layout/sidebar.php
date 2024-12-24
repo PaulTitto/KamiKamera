@@ -115,18 +115,13 @@
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item <?=$statusPenyewaan;?> <?=$statuslaporanPenyewaan;?>">
-        <a class="nav-link collapsed" href="?menu=penyewaan" data-toggle="collapse" data-target="#collapsePenyewaan" aria-expanded="true" aria-controls="collapseUtilities">
+      <li class="nav-item <?=$statusPenyewaan;?>">
+        <a class="nav-link" href="daftar-penyewaan?menu=penyewaan">
           <i class="fas fa-fw fa-clipboard-list text-light"></i>
           <span class="text-light">Penyewaan</span>
         </a>
-        <div id="collapsePenyewaan" class="<?=$showPenyewaan;?>" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item <?=$statusPenyewaan;?>" href="daftar-penyewaan?menu=penyewaan">Daftar Penyewaan</a>
-            <a class="collapse-item <?=$statuslaporanPenyewaan;?>" href="daftar-laporanPenyewaan?menu=laporanPenyewaan">Laporan</a>
-          </div>
-        </div>
       </li>
+
 
       <!-- <li class="nav-item <?=$statusPengembalian;?> <?=$statuslaporanPengembalian;?>">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengembalian" aria-expanded="true" aria-controls="collapsePengembalian">
