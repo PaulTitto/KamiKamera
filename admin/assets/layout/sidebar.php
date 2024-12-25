@@ -21,6 +21,13 @@
       $statusBarang='active';
       break;
 
+    case 'user':
+      $showPenyewaan='collapse';
+      $showPengembalian='collapse'; 
+      // $showPengadaan='collapse'; 
+      $statusUser='active';
+      break;
+
     case 'penyewaan':
       $showPenyewaan='collapse show';      
       $statusPenyewaan='active';
@@ -112,6 +119,12 @@
         <a class="nav-link" href="barang-sewa?menu=barang">
           <i class="fas fa-fw fa-campground text-light"></i>
           <span class="text-light">Barang Sewa</span></a>
+      </li>
+
+      <li class="nav-item <?=$statusUser;?>">
+        <a class="nav-link" href="daftar-user?menu=user">
+          <i class="fas fa-fw fa-user text-light"></i>
+          <span class="text-light">Daftar User</span></a>
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->

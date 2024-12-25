@@ -60,7 +60,7 @@
                   <select name="jk" class="form-control">
                     <option hidden value="3">-Pilih Jenis Kelamin-</option>
                     <option value="1">Laki-Laki</option>
-                    <option value="0">Perempuan</option>
+                    <option value="2">Perempuan</option>
                   </select>
                 </div> 
               </div>
