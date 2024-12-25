@@ -1,222 +1,72 @@
+<?php include 'assets/php/db.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
   <title>KamiKamera | Admin</title>
 
   <!-- Custom fonts for this template-->
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
   <!-- Custom styles for this template-->
   <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
-  <!-- DataTables -->
-  <link href="assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  <link href="assets/vendor/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-  <!-- Responsive datatable examples -->
-  <link href="assets/vendor/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+  <!-- Alertify CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/alertify.js/1.13.1/alertify.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/alertify.js/1.13.1/themes/default.min.css" />
 </head>
 
 <body id="page-top">
-
-  <!-- Page Wrapper -->
   <div id="wrapper">
-
     <?php include 'assets/layout/sidebar.php'; ?>
-
-    <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
-
-      <!-- Main Content -->
       <div id="content">
-
         <?php include 'assets/layout/topbar.php'; ?>
-
-        <!-- Begin Page Content -->
         <div class="container-fluid">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Grafik Penyewaan</h5>
+              <hr>
+              <div id="grafik"></div>
+                <?php
+                  // Query untuk menghitung jumlah penyewa per hari berdasarkan tgl_pesan
+                  $query = "
+                    SELECT tgl_pesan, COUNT(nama_pemesan) as jumlah_penyewa
+                    FROM tb_transaksi
+                    GROUP BY tgl_pesan
+                    ORDER BY tgl_pesan
+                  ";
+                  $transaksi = mysqli_query($conn, $query);
+                  $data = [];
 
-          <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            <a href="grafik-penyewaan.php" class="btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-chart-line fa-sm text-white-50"></i> Grafik Transaksi
-            </a>
-          </div>
-          
-          <!-- Content Row -->
-
-          <div class="row">
-
-            <!-- Area Chart -->
-            <div class="col-xl-12 col-lg-12">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-hover" id="datatable-buttons" width="100%" cellspacing="0">
-                      <thead>
-                        <tr>
-                          <th>No</th>
-                          <th>Id Barang</th>
-                          <th>Nama Barang</th>
-                          <th>Harga Barang</th>
-                          <th>Harga Sewa (hari)</th>
-                          <th>Qty (unit)</th>
-                        </tr>
-                      </thead>
-                      <tbody id="table-content">
-                        <!-- Data populated dynamically -->
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                  if ($transaksi) {
+                    while ($row = mysqli_fetch_array($transaksi)) {
+                      $data[] = array(
+                        $row['tgl_pesan'], // Tanggal pemesanan
+                        floatval($row['jumlah_penyewa']) // Jumlah penyewa pada hari itu
+                      );
+                    }
+                    $json = json_encode($data);
+                  } else {
+                    echo 'Query gagal: ' . mysqli_error($conn);
+                  }
+                ?>
               </div>
             </div>
-          </div>
-
-          <div style="display: none;">
-          <!-- Content Row -->
-          <div class="row">
-
-            <!-- Content Column -->
-            <div class="col-lg-6 mb-4">
-
-              <!-- Project Card Example -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
-                </div>
-                <div class="card-body">
-                  <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Account Setup <span class="float-right">Complete!</span></h4>
-                  <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Color System -->
-              <div class="row">
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-primary text-white shadow">
-                    <div class="card-body">
-                      Primary
-                      <div class="text-white-50 small">#4e73df</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-success text-white shadow">
-                    <div class="card-body">
-                      Success
-                      <div class="text-white-50 small">#1cc88a</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-info text-white shadow">
-                    <div class="card-body">
-                      Info
-                      <div class="text-white-50 small">#36b9cc</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-warning text-white shadow">
-                    <div class="card-body">
-                      Warning
-                      <div class="text-white-50 small">#f6c23e</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-danger text-white shadow">
-                    <div class="card-body">
-                      Danger
-                      <div class="text-white-50 small">#e74a3b</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-secondary text-white shadow">
-                    <div class="card-body">
-                      Secondary
-                      <div class="text-white-50 small">#858796</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="col-lg-6 mb-4">
-
-              <!-- Illustrations -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                </div>
-                <div class="card-body">
-                  <div class="text-center">
-                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="">
-                  </div>
-                  <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
-                  <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw &rarr;</a>
-                </div>
-              </div>
-
-              <!-- Approach -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                </div>
-                <div class="card-body">
-                  <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
-                  <p class="mb-0">Before working with this theme, you should become familiar with the Bootstrap framework, especially the utility classes.</p>
-                </div>
-              </div>
-
-            </div>
-          </div>
           </div>
         </div>
-        <!-- /.container-fluid -->
-
       </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <?php include'assets/layout/footer.php';?>
-      <!-- End of Footer -->
-
     </div>
-    <!-- End of Content Wrapper -->
+  </div>
+  <!-- Footer -->
+  <?php include'assets/layout/footer.php';?>
+  <!-- End of Footer -->
+
+  </div>
+  <!-- End of Content Wrapper -->
 
   </div>
   <!-- End of Page Wrapper -->
@@ -244,84 +94,69 @@
       </div>
     </div>
   </div>
+
   <!-- Bootstrap core JavaScript-->
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="assets/js/sb-admin-2.min.js"></script>
-
-  <!-- Page level vendor -->
-  <script src="assets/vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  <!-- Buttons examples -->
-  <script src="assets/vendor/datatables/dataTables.buttons.min.js"></script>
-  <script src="assets/vendor/datatables/buttons.bootstrap4.min.js"></script>
-  <script src="assets/vendor/datatables/jszip.min.js"></script>
-  <script src="assets/vendor/datatables/pdfmake.min.js"></script>
-  <script src="assets/vendor/datatables/vfs_fonts.js"></script>
-  <script src="assets/vendor/datatables/buttons.html5.min.js"></script>
-  <script src="assets/vendor/datatables/buttons.print.min.js"></script>
-  <script src="assets/vendor/datatables/buttons.colVis.min.js"></script>
-  <!-- Responsive examples -->
-  <script src="assets/vendor/datatables/dataTables.responsive.min.js"></script>
-  <script src="assets/vendor/datatables/responsive.bootstrap4.min.js"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="assets/js/demo/datatables-demo.js"></script>
-  <script src="assets/js/demo/chart-area-demo.js"></script>
-  <script src="assets/js/demo/chart-pie-demo.js"></script>
-
+  <!-- Scripts -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/series-label.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   <script type="text/javascript">
-    $(document).ready(function() {
-      $('#datatable').DataTable();
-      //Buttons examples
-      var table = $('#datatable-buttons').DataTable({
-        lengthChange: true,
-        buttons: ['copy', 'excel', 'pdf']
-      });
-
-      table.buttons().container()
-        .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-    });
-  </script>
-
-  <script>
-    $(document).ready(function () {
-      function loadTable() {
-        $.ajax({
-          url: 'http://localhost/rentalcam/admin/assets/php/barang.php',
-          method: 'GET',
-          dataType: 'json',
-          success: function (response) {
-            let rows = '';
-            if (response.status === 'success') {
-              response.data.forEach((item, index) => {
-                rows += `
-                <tr>
-                  <td>${index + 1}</td>
-                  <td>${item.id_barang}</td>
-                  <td>${item.nama_barang}</td>
-                  <td>${formatRupiah(item.harga_barang)}</td>
-                  <td>${formatRupiah(item.harga_sewa)}</td>
-                  <td>${item.qty}</td>
-                </tr>`;
-              });
-            }
-            $('#table-content').html(rows);
-            $('#datatable').DataTable();
+    Highcharts.chart('grafik', {
+      title: {
+        text: 'Transaksi Penyewaan'
+      },
+      yAxis: {
+        title: {
+          text: 'Jumlah Penyewa'
+        }
+      },
+      xAxis: {
+        type: 'category',
+        accessibility: {
+          rangeDescription: 'Waktu'
+        }
+      },
+      tooltip: {
+        pointFormat: '{point.y} Orang'
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+      },
+      plotOptions: {
+        series: {
+          label: {
+            connectorAllowed: false
           }
-        });
+        }
+      },
+      series: [{
+        name: 'Jumlah Penyewa',
+        lineWidth: 2,
+        data: <?= $json ?>
+      }],
+      responsive: {
+        rules: [{
+          condition: {
+            maxWidth: 500
+          },
+          chartOption: {
+            legend: {
+              layout: 'horizontal',
+              align: 'center',
+              verticalAlign: 'bottom'
+            }
+          }
+        }]
       }
-
-      function formatRupiah(number) {
-        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
-      }
-
-      loadTable();
     });
   </script>
 </body>

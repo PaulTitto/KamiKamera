@@ -64,7 +64,7 @@ $id_transaksi = generateIdTransaksi($conn);
 
                 <!-- Tombol Tambah Penyewaan -->
                 <div class="mb-3">
-                    <button id="btn-tambah-penyewaan" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalTambahPenyewaan">
+                    <button id="btn-tambah-penyewaan" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalTambahPenyewaan">
                         <i class="fas fa-plus"></i> Tambah Penyewaan
                     </button>
                 </div>

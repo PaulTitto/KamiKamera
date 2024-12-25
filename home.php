@@ -1,5 +1,4 @@
 <?php 
-
 session_start();
     ob_start();
     if (isset($_SESSION['idUser'])) {
@@ -11,14 +10,11 @@ include 'assets/php/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
   <title>KamiKamera | Online</title>
 
   <!-- Font Awesome Icons -->
@@ -59,11 +55,32 @@ include 'assets/php/db.php';
       background-attachment:scroll;
       background-size:cover;
     }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fc;
+    }
+    .page-section {
+      padding: 50px;
+    }
+    .card-header {
+      background-color: #4e73df;
+      color: white;
+      font-size: 1.25rem;
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+    }
+    .card-body {
+      padding: 20px;
+    }
+    .list-group-item {
+      list-style: none;
+      border: none;
+      padding: 10px 0;
+    }
   </style>
 </head>
 
 <body id="page-top">
-
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
     <div class="container">
@@ -93,8 +110,7 @@ include 'assets/php/db.php';
                 <a class="dropdown-item" href="login-user.php">User</a>
                 <a class="dropdown-item" href="login-admin.php">Admin</a>
             </div>
-           </li>
-
+          </li>
         </ul>
       </div>
     </div>
@@ -105,12 +121,12 @@ include 'assets/php/db.php';
     <div class="container h-100">
       <div class="row h-100 align-items-end justify-content-end text-lg-right">
         <div class="col-lg-10 align-self-end">
-<!--          <img src="assets/img/logo.png" class="logo">-->
-<!--          <hr class="divider-primary my-4">-->
+         <!-- <img src="assets/img/logo.png" class="logo">
+         <hr class="divider-primary my-4"> -->
         </div>
         <div class="col-lg-8 align-self-baseline">
           <h3 class="text-white font-weight-light mb-3 text-shadow">Safer, Faster, and <br>Comfortable</h3>
-            <h5 class="text-white font-weight-light mb-5 text-shadow">Get in touch with our <br>luxury cars</h5>
+          <h5 class="text-white font-weight-light mb-5 text-shadow">Get in touch with our <br>luxury cars</h5>
           <!-- <a class="btn btn-light btn-xl js-scroll-trigger"  href="#about">Rent Now</a> -->
         </div>
       </div>
@@ -121,22 +137,51 @@ include 'assets/php/db.php';
   <section class="page-section bg-primary" id="about">
     <div class="container">
       <div class="justify-content-center ">
-          <section class="page-section bg-secondary" id="about">
-                  <div class="row justify-content-center ">
-                      <div class="col-lg-11 text-left">
-                          <h2 class="text-white ">Book your dream camera now!</h2>
-<!--                          <hr class="divider-light my-2 align-items-md-start">-->
-                          <h5 class="text-white mb-4">Rent a camera online now from one of our worldwide locations. With over 20 years of experience in camera rentals and customer service, all we need is your ID, and you can book any camera you desire.</h5>
-                          <a class="btn btn-light btn-l js-scroll-trigger mx-2" href="login-user.php">Rent Now</a> 
-                          <span class="text-white">Atau </span>
-                          <button class="btn btn-dark btn-l js-scroll-trigger mx-2" onclick="window.location.assign('barang-sewa?p=1&k=all')">Lihat Barang</button>
-                      </div>
+        <section class="page-section bg-secondary" id="about">
+          <div class="row justify-content-center ">
+            <div class="col-lg-11 text-left">
+                <h2 class="text-white ">Book your dream camera now!</h2>
+                <!-- <hr class="divider-light my-2 align-items-md-start"> -->
+                <h5 class="text-white mb-4">Rent a camera online now from one of our worldwide locations. With over 20 years of experience in camera rentals and customer service, all we need is your ID, and you can book any camera you desire.</h5>
+                <a class="btn btn-light btn-l js-scroll-trigger mx-2" href="login-user.php">Rent Now</a> 
+                <span class="text-white">Atau </span>
+                <button class="btn btn-dark btn-l js-scroll-trigger mx-2" onclick="window.location.assign('barang-sewa?p=1&k=all')">Lihat Barang</button>
+            </div>
+          </div>
+          <div class="row justify-content-center mt-4">
+          <div class="col-lg-11 text-left">
+            <div class="card">
+              <div class="card-header">
+                  <i class="fas fa-book"></i> Peraturan Penyewaan
               </div>
-          </section>
+              <div class="card-body">
+                <?php
+                  $file_path = 'peraturan_peminjaman.txt';
+
+                  if (file_exists($file_path)) {
+                    // Membaca isi file
+                    $rules = file($file_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+                    if (!empty($rules)) {
+                      echo '<ul class="list-group">';
+                      foreach ($rules as $index => $rule) {
+                        echo '<li class="list-group-item"><strong>' . ($index + 1) . '.</strong> ' . htmlspecialchars($rule) . '</li>';
+                      }
+                      echo '</ul>';
+                    } else {
+                      echo '<p class="text-danger">File peraturan kosong.</p>';
+                    }
+                  } else {
+                    echo '<p class="text-danger">File peraturan tidak ditemukan.</p>';
+                  }
+                ?>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </section>
-
 
   <!-- Services Section -->
   <section class="page-section " id="services">
